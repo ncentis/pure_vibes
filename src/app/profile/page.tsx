@@ -50,7 +50,6 @@ export default function ProfilePage() {
         <div className={styles.alignLayout}>
           <div>
             <section className={styles.card}>
-              <h2 className={styles.cardTitle}>Default ranking</h2>
               <PriorityList items={ranking} onChange={setRanking} />
             </section>
 
