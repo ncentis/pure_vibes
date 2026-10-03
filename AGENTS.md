@@ -164,7 +164,7 @@ The example normalizes a brief, generates a Zod-validated plan, and saves it in 
 
 ### Vercel: link and deploy
 
-Git integration is the usual deployment path: import the canonical repo into the team's Vercel project, add hosted env values, and configure the production branch to match the actual upstream default. For CLI work:
+Git integration is the usual deployment path: import the canonical repo into the team's Vercel project, add hosted env values, and configure the production branch to match the actual `origin` default branch. For CLI work:
 
 ```bash
 npx vercel@latest login

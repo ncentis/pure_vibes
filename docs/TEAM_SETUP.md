@@ -113,8 +113,13 @@ The sample performs two sequential model calls. It has token caps, a 45-second A
 Prerequisites: Git, Node 24 LTS, npm. Docker is needed only for local Supabase/testing; Stripe CLI is needed for local payment webhooks.
 
 ```bash
-git clone YOUR_REPOSITORY_URL
+gh repo clone ncentis/pure_vibes
 cd pure_vibes
+git fetch origin --prune
+OWNER=george # choose nick, george, or kathryn
+TASK=my-task
+git worktree add "../pure_vibes-$OWNER-$TASK" -b "$OWNER/$TASK" origin/master
+cd "../pure_vibes-$OWNER-$TASK"
 nvm install
 nvm use
 npm ci
