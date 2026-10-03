@@ -44,6 +44,12 @@
   font-style: italic;
 }
 
+/* Better line breaking for display text: avoids orphans and ragged
+   last lines (falls back gracefully where unsupported). */
+.pretty {
+  text-wrap: pretty;
+}
+
 .agentName {
   color: rgba(0, 0, 0, 0.55);
   font-size: 0.8rem;

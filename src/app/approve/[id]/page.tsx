@@ -23,7 +23,7 @@ export default async function AlignPage({
     <div className={`${styles.page} ${glassboxFonts}`}>
       <TopBar />
       <div className={styles.alignShell}>
-        <h1 className={styles.taskHeader}>
+        <h1 className={`${styles.taskHeader} ${styles.pretty}`}>
           Here is how <em>i</em> will approach {review.task_summary}
         </h1>
         <p className={styles.agentName}>

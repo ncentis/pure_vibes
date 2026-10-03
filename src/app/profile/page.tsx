@@ -45,7 +45,9 @@ export default function ProfilePage() {
       <div className={styles.alignShell}>
         {/* TODO(wiring): replace with the live prompt summary once reviews
             feed this page. */}
-        <h1 className={`${styles.taskHeader} ${styles.taskHeaderSolo}`}>
+        <h1
+          className={`${styles.taskHeader} ${styles.taskHeaderSolo} ${styles.pretty}`}
+        >
           Here is how <em>i</em> will approach your wine tracker
         </h1>
 
