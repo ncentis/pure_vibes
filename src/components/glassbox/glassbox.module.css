@@ -1119,15 +1119,18 @@
       transparent 70%
     );
   filter: blur(46px);
-  animation: gbClouds 90s ease-in-out infinite alternate;
+  animation: gbClouds 28s ease-in-out infinite alternate;
 }
 
 @keyframes gbClouds {
   from {
-    transform: translate3d(0, 0, 0) scale(1);
+    transform: translate3d(-5%, -2%, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(3%, 2%, 0) scale(1.1);
   }
   to {
-    transform: translate3d(4%, 2.5%, 0) scale(1.08);
+    transform: translate3d(9%, -1%, 0) scale(1.04);
   }
 }
 
