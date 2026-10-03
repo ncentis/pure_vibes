@@ -1,11 +1,10 @@
 import type { Metadata, Viewport } from "next";
-import { SiteNav } from "@/components/site-nav";
 import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Glass Box",
   description:
-    "Guardrails tell an agent what it can't do. Glass Box tells it what you actually care about.",
+    "See how your AI really works. Your agent shares its plan, you set the priorities, it follows them.",
 };
 
 export const viewport: Viewport = {
@@ -14,15 +13,14 @@ export const viewport: Viewport = {
   themeColor: "#ffffff",
 };
 
+// Pages wrap themselves in the glassbox <Shell> (frosted TopBar + sky),
+// so the layout stays bare.
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
-      <body className="min-h-dvh">
-        <SiteNav />
-        {children}
-      </body>
+      <body className="min-h-dvh">{children}</body>
     </html>
   );
 }
