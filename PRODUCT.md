@@ -1,4 +1,4 @@
-# Product
+# Glass Box
 
 <!-- impeccable:product-schema 1 -->
 
@@ -12,12 +12,12 @@ Confirmed: Next.js + TypeScript on Vercel, Supabase, Stripe, and an AI workflow.
 
 ## Users
 
-George, Katie, and Nick building a hackathon product together.
+Nick, George, and Kathryn building a hackathon product together.
 
 ## Product Purpose
 
-A reusable integration scaffold so the team can focus on deciding and building a viable product.
+Glass Box is the team's hackathon product. The current repository supplies its reusable TypeScript integration scaffold; the product-specific workflow and interface are still being built.
 
 ## Capabilities and Constraints
 
-A minimal developer-facing starter page and example API routes were approved. Product-specific UI, customer workspaces, final business model, pricing, and AI provider choice remain open. OpenAI and individual accounts are initial implementation defaults, not confirmed product requirements.
+A minimal developer-facing starter page and example API routes were approved. Glass Box's product-specific workflow, customer model, final business model, pricing, and deployment details remain open. OpenAI and individual accounts are scaffold defaults, not fixed product requirements.
