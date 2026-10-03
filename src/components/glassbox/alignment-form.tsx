@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import styles from "./glassbox.module.css";
+import { PlusIcon } from "./plus-icon";
 import { PriorityList, type RankedItem } from "./priority-list";
 import {
   DIAL_SPECS,
@@ -184,9 +185,7 @@ export function AlignmentForm({ review }: AlignmentFormProps) {
                   onClick={() => addSuggestion(s.name)}
                   disabled={added}
                 >
-                  <span className={styles.sugChipIcon} aria-hidden>
-                    +
-                  </span>
+                  <PlusIcon className={styles.sugChipIcon} />
                   <span className={styles.optRowBody}>
                     <span>
                       {s.name}

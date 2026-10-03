@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import styles from "@/components/glassbox/glassbox.module.css";
+import { PlusIcon } from "@/components/glassbox/plus-icon";
 import {
   PriorityList,
   type RankedItem,
@@ -135,9 +136,7 @@ export default function ProfilePage() {
                       onClick={() => addValue(name)}
                       disabled={added}
                     >
-                      <span className={styles.sugChipIcon} aria-hidden>
-                        +
-                      </span>
+                      <PlusIcon className={styles.sugChipIcon} />
                       <span className={styles.optRowBody}>
                         <span>
                           {name}

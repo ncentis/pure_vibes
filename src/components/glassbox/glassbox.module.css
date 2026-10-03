@@ -420,7 +420,7 @@
 }
 
 .optRowCritical .sugChipIcon {
-  background: #c62828;
+  color: #c62828;
 }
 
 /* Secondary (outline) button */
@@ -495,19 +495,15 @@
 
 .sugChipIcon {
   flex: none;
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  background: #000;
-  color: #fff;
-  display: grid;
-  place-items: center;
-  font-size: 0.8rem;
-  line-height: 1;
+  display: block;
+  width: 14px;
+  height: 14px;
+  margin-top: 1px;
+  color: #5a5a5a;
 }
 
 .sugChipCritical .sugChipIcon {
-  background: #c62828;
+  color: #c62828;
 }
 
 .sugChipAdded {
