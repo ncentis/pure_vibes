@@ -56,7 +56,11 @@ export function PriorityList({ items, onChange }: PriorityListProps) {
     if (from === null) return;
     const current = orderRef.current;
     const dy = e.clientY - grabY.current;
-    if (Math.abs(dy) > 5) movedRef.current = true;
+    if (Math.abs(dy) > 5 && !movedRef.current) {
+      movedRef.current = true;
+      // Holding to drag also reveals the close control on the lifted tile.
+      setArmedName(current[from]?.name ?? null);
+    }
     const slots = Math.round(dy / slotHeight.current);
     const target = Math.min(Math.max(from + slots, 0), current.length - 1);
 
