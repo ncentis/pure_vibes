@@ -57,10 +57,10 @@ export default function OnboardingPage() {
           <>
             <p className={styles.stepLabel}>Step 1 of 3</p>
             <h1 className={`${styles.taskHeader} ${styles.pretty}`}>
-              Here is how <em>we</em> will get you started
+              See how your AI <em>really</em> works
             </h1>
             <p className={styles.agentName}>
-              Create your account — your agents will answer to it.
+              Create your account to get started.
             </p>
             <div className={styles.onboardCard}>
               <div className={styles.fieldGroup}>
@@ -159,10 +159,11 @@ export default function OnboardingPage() {
           <>
             <p className={styles.stepLabel}>Step 2 of 3</p>
             <h1 className={`${styles.taskHeader} ${styles.pretty}`}>
-              What do <em>you</em> always care about
+              Tell it what <em>matters</em>
             </h1>
             <p className={styles.agentName}>
-              Drag to order. Every agent inherits this on every task.
+              Drag to set your priorities. Every agent follows them, on every
+              task.
             </p>
             <PriorityList items={ranking} onChange={setRanking} />
             <div className={styles.onboardFooter}>
@@ -189,10 +190,11 @@ export default function OnboardingPage() {
           <>
             <p className={styles.stepLabel}>Step 3 of 3</p>
             <h1 className={`${styles.taskHeader} ${styles.pretty}`}>
-              Where is your hard line
+              Set your hard lines
             </h1>
             <p className={styles.agentName}>
-              These can never be crossed, no matter the ranking.
+              Some things are never okay. These won&apos;t be crossed — no
+              matter what.
             </p>
             <div className={styles.hardList}>
               {hardLines.map((h) => (
