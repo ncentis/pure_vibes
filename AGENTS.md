@@ -62,18 +62,20 @@ For nvm installation, follow https://github.com/nvm-sh/nvm#installing-and-updati
    gh auth setup-git
    gh repo clone ncentis/pure_vibes
    cd pure_vibes
+   # Set OWNER to your team handle: nick, george, or kathryn.
+   OWNER=george
+   TASK=onboarding
    git fetch origin
    BASE_BRANCH=$(gh repo view ncentis/pure_vibes --json defaultBranchRef --jq '.defaultBranchRef.name')
-   TASK="onboarding-$USER"
-   git worktree add "../pure_vibes-$TASK" -b "docs/$TASK" "origin/$BASE_BRANCH"
-   cd "../pure_vibes-$TASK"
+   git worktree add "../pure_vibes-$OWNER-$TASK" -b "$OWNER/$TASK" "origin/$BASE_BRANCH"
+   cd "../pure_vibes-$OWNER-$TASK"
    nvm install
    nvm use
    npm ci
    npm run setup
    ```
 
-   If the base repo is already cloned, reuse it and create a uniquely named worktree beside it; do not clone inside another checkout. The example uses a username-based task name; change it if it is already in use. If using Node 24 directly, skip the nvm commands. Install dependencies and create `.env.local` separately in each worktree as needed (`node_modules` and env files are not shared).
+   If the base repo is already cloned, reuse it and create a uniquely named worktree beside it; do not clone inside another checkout. Choose your own owner prefix and a unique task name. If `origin` is wrong, set it to `https://github.com/ncentis/pure_vibes.git`; remove any `upstream` remote rather than using it. If using Node 24 directly, skip the nvm commands. Install dependencies and create `.env.local` separately in each worktree as needed (`node_modules` and env files are not shared).
 
 3. Populate `.env.local` from the team vault and your own development credentials. `npm run setup` copies `.env.example` without overwriting an existing file. Never print or paste the env file into agent output.
 4. Run `npm run env:check`, `npm run check`, then `npm run dev`. Open `http://localhost:3000`. The starter page and code checks work without cloud keys; live integration actions require configuration.
@@ -122,7 +124,7 @@ npx supabase link --project-ref YOUR_PROJECT_REF
 Get the project ref from the owner/dashboard; do not infer it from an unrelated accessible project. Coordinate migration deployment with the teammate who owns the shared database:
 
 ```bash
-npx supabase migration new descriptive_name # Nick only for migrations intended for the shared project
+npx supabase migration new descriptive_name # Nick only; other teammates send schema requests to Nick
 # Edit the new SQL migration; test on local Supabase when available.
 npx supabase db push --dry-run
 npm run db:push # Nick only, after confirming the target and obtaining the required OK

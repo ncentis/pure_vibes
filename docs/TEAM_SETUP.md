@@ -21,7 +21,7 @@ File ownership and approval rules are recorded in the **Team ownership and produ
 
 ### Recommended for the hackathon: shared hosted development project
 
-Nick alone creates migrations and applies them to the shared hosted development database. Teammates may author/test local migrations only in coordination with Nick. Nick reviews migration and type-generation changes before shared rollout:
+Nick alone creates migrations and applies them to the shared hosted development database. Teammates propose schema changes to Nick and can test the migration locally after he creates it. Nick reviews migration and type-generation changes before shared rollout:
 
 ```bash
 npm ci
