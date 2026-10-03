@@ -3,7 +3,8 @@
 Owner: Kathryn (design, front end). Source of truth for look and feel.
 Figma: [Hackathon file](https://www.figma.com/design/yNdLWLQJvQTgqF8mheKGYo/Hackathon)
 — key frames: `3-17` (mobile ranking), `5-2031` (desktop two-column),
-`5-1799` (tablet + revealed close).
+`5-1799` (tablet + revealed close). Figma is the reference for layout
+and surfaces only — its text is rough placeholder, never copy canon.
 
 ## Voice
 
@@ -11,6 +12,12 @@ The agent speaks in first person, lowercase italic "i":
 **"Here is how _i_ will approach [prompt summary]."** Short, calm,
 plain words. The product shows what a plan optimizes for, so the UI
 stays quiet and lets the ranking be the drama.
+
+Copy standard: benefit-led headline, one-line instruction under it.
+Short sentences. Direct but warm. No hedges or redundancy ("additional
+optional"), no em-dash chains. Examples that set the bar: "See how your
+AI _really_ works." · "Tell it what _matters_." · "These won't be
+crossed. No matter what." · "Worth adding."
 
 ## Type
 
@@ -68,7 +75,7 @@ Dark glass (Continue, toggles-on, confirm mark): `rgba(10,10,12,.78–.82)`
 - **Drag**: pointer-events on the whole tile, slot arithmetic (row
   height + 8px gap), live reorder, lifted tile gets deeper shadow.
   #1 tile reads slightly stronger (shadow only).
-- **Options group card** ("Additional optional values you may add"):
+- **Options group card** ("Worth adding"):
   radius 16 glass card; vertical rows of [plus icon + label], left
   aligned; reasons in 0.68rem under the label; critical rows tint icon
   and reason red; added rows dim to 40% with "· added".
