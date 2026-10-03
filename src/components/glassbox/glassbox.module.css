@@ -125,6 +125,7 @@
 }
 
 .rankItem {
+  position: relative;
   display: flex;
   align-items: center;
   gap: 12px;
@@ -193,16 +194,18 @@
 }
 
 .rankRemove {
-  flex: none;
+  position: absolute;
+  top: 5px;
+  right: 6px;
   min-height: 0;
-  width: 26px;
-  height: 26px;
+  width: 20px;
+  height: 20px;
   padding: 0;
   border: none;
   border-radius: 50%;
   background: transparent;
   color: rgba(0, 0, 0, 0.3);
-  font-size: 1rem;
+  font-size: 0.85rem;
   line-height: 1;
 }
 
@@ -672,4 +675,154 @@
   .page {
     padding: 40px 24px 120px;
   }
+}
+
+/* Liquid glass treatment — translucent tiles with backdrop blur and a
+   specular top edge, over soft color fields that give the glass something
+   to refract. Overrides the flat surfaces defined above. */
+
+.page {
+  background:
+    radial-gradient(
+      560px 420px at 12% 6%,
+      rgba(164, 194, 255, 0.5),
+      transparent 65%
+    ),
+    radial-gradient(
+      620px 460px at 92% 28%,
+      rgba(255, 205, 170, 0.42),
+      transparent 65%
+    ),
+    radial-gradient(
+      700px 520px at 40% 85%,
+      rgba(173, 235, 210, 0.4),
+      transparent 65%
+    ),
+    radial-gradient(
+      420px 320px at 75% 70%,
+      rgba(222, 180, 255, 0.28),
+      transparent 65%
+    ),
+    #eef0f4;
+  background-attachment: fixed;
+}
+
+.svrRow,
+.rankItem,
+.dialRow,
+.hardRow,
+.stat,
+.feedItem,
+.reviewCard {
+  background: rgba(255, 255, 255, 0.42);
+  backdrop-filter: blur(16px) saturate(1.6);
+  -webkit-backdrop-filter: blur(16px) saturate(1.6);
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.85),
+    0 2px 8px rgba(40, 50, 80, 0.07);
+}
+
+.rankItemDragging {
+  background: rgba(255, 255, 255, 0.6);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    0 14px 34px rgba(40, 50, 80, 0.2);
+}
+
+.feedBreach {
+  box-shadow:
+    inset 3px 0 0 #c62828,
+    inset 0 1px 0 rgba(255, 255, 255, 0.85),
+    0 2px 8px rgba(40, 50, 80, 0.07);
+}
+
+.sugTray {
+  background: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(10px) saturate(1.4);
+  -webkit-backdrop-filter: blur(10px) saturate(1.4);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.sugTrayInner {
+  background: rgba(255, 255, 255, 0.28);
+}
+
+.sugChip {
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.65);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    0 1px 3px rgba(40, 50, 80, 0.08);
+}
+
+.sugChip:hover {
+  background: rgba(255, 255, 255, 0.85);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.95),
+    0 3px 10px rgba(40, 50, 80, 0.14);
+}
+
+.budgetInput {
+  background: rgba(255, 255, 255, 0.5);
+  border-color: rgba(255, 255, 255, 0.7);
+}
+
+.toggle {
+  background: rgba(120, 128, 142, 0.25);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  box-shadow: inset 0 1px 2px rgba(40, 50, 80, 0.12);
+}
+
+.toggle:hover {
+  background: rgba(120, 128, 142, 0.35);
+}
+
+.toggleOn {
+  background: rgba(10, 10, 12, 0.82);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.4);
+}
+
+.toggleOn:hover {
+  background: rgba(30, 30, 34, 0.85);
+}
+
+.dialInput {
+  background: rgba(120, 128, 142, 0.25);
+}
+
+.submit {
+  background: rgba(10, 10, 12, 0.78);
+  backdrop-filter: blur(14px) saturate(1.4);
+  -webkit-backdrop-filter: blur(14px) saturate(1.4);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.28),
+    0 12px 30px rgba(20, 25, 45, 0.3);
+}
+
+.submit:hover {
+  background: rgba(28, 28, 32, 0.82);
+}
+
+.confirmMark {
+  background: rgba(10, 10, 12, 0.82);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.pillPending {
+  background: rgba(245, 234, 217, 0.75);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+.pillApproved {
+  background: rgba(227, 239, 228, 0.75);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
 }
