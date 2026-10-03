@@ -122,9 +122,7 @@ export default function ProfilePage() {
 
           <aside className={styles.sideSticky}>
             <div className={styles.optCard}>
-              <p className={styles.optCardTitle}>
-                Additional optional values you may add
-              </p>
+              <p className={styles.optCardTitle}>Worth adding</p>
               <div className={styles.optList}>
                 {PROFILE_VALUE_CATALOG.map((name) => {
                   const added = inRanking.has(name);
