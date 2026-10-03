@@ -474,6 +474,59 @@
   background: #000;
 }
 
+.oauthStack {
+  display: grid;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.oauthBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  min-height: 48px;
+  border-radius: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.18);
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  font-family: var(--font-sans), system-ui, sans-serif;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #000;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+.oauthBtn:hover {
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.oauthIcon {
+  flex: none;
+  display: block;
+  width: 18px;
+  height: 18px;
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0 0 16px;
+  font-size: 0.72rem;
+  color: rgba(0, 0, 0, 0.4);
+}
+
+.divider::before,
+.divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: rgba(0, 0, 0, 0.12);
+}
+
 .fieldGroup {
   display: grid;
   gap: 6px;
