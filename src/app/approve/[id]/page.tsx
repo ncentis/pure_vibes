@@ -24,7 +24,7 @@ export default async function AlignPage({
       <TopBar />
       <div className={styles.alignShell}>
         <h1 className={styles.taskHeader}>
-          Here is how <em>i</em> want to approach it
+          Here is how <em>i</em> will approach {review.task_summary}
         </h1>
         <p className={styles.agentName}>
           {review.agent_name} · “{review.task}”

@@ -41,6 +41,8 @@ export interface MockReview {
   id: string;
   agent_name: string;
   task: string;
+  // Short prompt summary used in the display headline.
+  task_summary: string;
   status: "pending" | "approved" | "rejected" | "expired";
   stated: string[];
   revealed: RevealedPriority[];
@@ -60,6 +62,7 @@ export const MOCK_REVIEWS: Record<string, MockReview> = {
     id: "demo-wine",
     agent_name: "Claude Code",
     task: "Build an app to track my wine collection",
+    task_summary: "your wine tracker",
     status: "pending",
     stated: ["Cost", "Works today", "Scale"],
     revealed: [
@@ -126,6 +129,7 @@ export const MOCK_REVIEWS: Record<string, MockReview> = {
     id: "demo-quiz",
     agent_name: "Quiz Agent (sandboxed)",
     task: "Ace this quiz",
+    task_summary: "this quiz",
     status: "pending",
     stated: ["Get the right answers", "Be fast"],
     revealed: [

@@ -30,10 +30,10 @@
 
 .taskHeader {
   margin: 0 auto 6px;
-  max-width: 320px;
+  max-width: 580px;
   font-family: var(--font-crimson), Georgia, serif;
   font-weight: 300;
-  font-size: 2.3rem;
+  font-size: clamp(1.7rem, 4.5vw, 2.3rem);
   line-height: 1.15;
   letter-spacing: -0.01em;
   text-align: center;

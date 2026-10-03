@@ -43,8 +43,10 @@ export default function ProfilePage() {
     <div className={`${styles.page} ${glassboxFonts}`}>
       <TopBar />
       <div className={styles.alignShell}>
+        {/* TODO(wiring): replace with the live prompt summary once reviews
+            feed this page. */}
         <h1 className={`${styles.taskHeader} ${styles.taskHeaderSolo}`}>
-          What <em>i</em> always care about
+          Here is how <em>i</em> will approach your wine tracker
         </h1>
 
         <div className={styles.alignLayout}>
