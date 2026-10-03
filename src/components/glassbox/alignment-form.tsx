@@ -63,8 +63,7 @@ export function AlignmentForm({ review }: AlignmentFormProps) {
         <section className={styles.card}>
           <h2 className={styles.cardTitle}>Stated vs. revealed</h2>
           <p className={styles.cardHint}>
-            What the agent says it cares about — and what its plan actually
-            optimizes for.
+            What it says it cares about. What its plan actually does.
           </p>
           <div className={styles.svr}>
             <div className={styles.svrRow}>
@@ -89,7 +88,7 @@ export function AlignmentForm({ review }: AlignmentFormProps) {
         <section className={styles.card}>
           <h2 className={styles.cardTitle}>Your priorities</h2>
           <p className={styles.cardHint}>
-            Drag to reorder — #1 wins every conflict. Tap a tile to remove it.
+            Drag to reorder. #1 wins every conflict. Tap a tile to remove it.
           </p>
           <PriorityList items={ranking} onChange={setRanking} />
         </section>
@@ -129,7 +128,7 @@ export function AlignmentForm({ review }: AlignmentFormProps) {
         <section className={styles.card}>
           <h2 className={styles.cardTitle}>Hard lines</h2>
           <p className={styles.cardHint}>
-            The agent cannot cross these, no matter the ranking.
+            These won&apos;t be crossed. No matter what.
           </p>
           <div className={styles.hardList}>
             {hardLines.map((h) => (
@@ -164,9 +163,7 @@ export function AlignmentForm({ review }: AlignmentFormProps) {
 
       <aside className={styles.sideSticky}>
         <div className={styles.optCard}>
-          <p className={styles.optCardTitle}>
-            Additional optional values you may add
-          </p>
+          <p className={styles.optCardTitle}>Worth adding</p>
           <div className={styles.optList}>
             {review.suggestions.map((s) => {
               const added = inRanking.has(s.name);
