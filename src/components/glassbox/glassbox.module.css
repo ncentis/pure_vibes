@@ -681,30 +681,75 @@
    specular top edge, over soft color fields that give the glass something
    to refract. Overrides the flat surfaces defined above. */
 
+/* Soft immersive frosted sky: pale blue overhead easing into a warm
+   horizon, with slow-drifting blurred cloud forms behind the glass. */
 .page {
+  position: relative;
+  background: linear-gradient(
+    180deg,
+    #afc9ee 0%,
+    #cdddf4 34%,
+    #e7ebf2 68%,
+    #f4efe7 100%
+  );
+  background-attachment: fixed;
+}
+
+.page::before {
+  content: "";
+  position: fixed;
+  inset: -25%;
+  z-index: 0;
+  pointer-events: none;
   background:
     radial-gradient(
-      560px 420px at 12% 6%,
-      rgba(164, 194, 255, 0.5),
-      transparent 65%
+      640px 300px at 22% 18%,
+      rgba(255, 255, 255, 0.85),
+      transparent 70%
     ),
     radial-gradient(
-      620px 460px at 92% 28%,
-      rgba(255, 205, 170, 0.42),
-      transparent 65%
+      760px 340px at 78% 34%,
+      rgba(255, 255, 255, 0.65),
+      transparent 70%
     ),
     radial-gradient(
-      700px 520px at 40% 85%,
-      rgba(173, 235, 210, 0.4),
-      transparent 65%
+      560px 280px at 40% 62%,
+      rgba(255, 255, 255, 0.5),
+      transparent 70%
     ),
     radial-gradient(
-      420px 320px at 75% 70%,
-      rgba(222, 180, 255, 0.28),
-      transparent 65%
+      500px 300px at 85% 80%,
+      rgba(255, 224, 196, 0.35),
+      transparent 70%
     ),
-    #eef0f4;
-  background-attachment: fixed;
+    radial-gradient(
+      420px 260px at 10% 85%,
+      rgba(203, 190, 255, 0.22),
+      transparent 70%
+    );
+  filter: blur(46px);
+  animation: gbClouds 90s ease-in-out infinite alternate;
+}
+
+@keyframes gbClouds {
+  from {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  to {
+    transform: translate3d(4%, 2.5%, 0) scale(1.08);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page::before {
+    animation: none;
+  }
+}
+
+.shell,
+.shellWide {
+  position: relative;
+  z-index: 1;
 }
 
 .svrRow,
