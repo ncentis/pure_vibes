@@ -20,6 +20,8 @@ interface PriorityListProps {
 export function PriorityList({ items, onChange }: PriorityListProps) {
   const [dragIndex, setDragIndex] = useState<number | null>(null);
   const [offsetY, setOffsetY] = useState(0);
+  // Tapped tile: grip slides left and the close control animates in.
+  const [armedName, setArmedName] = useState<string | null>(null);
   const listRef = useRef<HTMLOListElement>(null);
   // Refs mirror drag state so rapid pointermove events don't read stale
   // React state between re-renders.
@@ -27,6 +29,7 @@ export function PriorityList({ items, onChange }: PriorityListProps) {
   const orderRef = useRef(items);
   const grabY = useRef(0);
   const slotHeight = useRef(0);
+  const movedRef = useRef(false);
 
   useEffect(() => {
     orderRef.current = items;
@@ -43,6 +46,7 @@ export function PriorityList({ items, onChange }: PriorityListProps) {
     slotHeight.current = rect.height + 8;
     grabY.current = e.clientY;
     dragRef.current = index;
+    movedRef.current = false;
     setDragIndex(index);
     setOffsetY(0);
   }
@@ -52,6 +56,7 @@ export function PriorityList({ items, onChange }: PriorityListProps) {
     if (from === null) return;
     const current = orderRef.current;
     const dy = e.clientY - grabY.current;
+    if (Math.abs(dy) > 5) movedRef.current = true;
     const slots = Math.round(dy / slotHeight.current);
     const target = Math.min(Math.max(from + slots, 0), current.length - 1);
 
@@ -70,13 +75,20 @@ export function PriorityList({ items, onChange }: PriorityListProps) {
     }
   }
 
-  function handlePointerUp() {
+  function handlePointerUp(index: number) {
+    const wasDrag = dragRef.current !== null;
     dragRef.current = null;
     setDragIndex(null);
     setOffsetY(0);
+    // A press that never moved is a tap: toggle the close control.
+    if (wasDrag && !movedRef.current) {
+      const name = orderRef.current[index]?.name ?? null;
+      setArmedName((prev) => (prev === name ? null : name));
+    }
   }
 
   function remove(index: number) {
+    setArmedName(null);
     onChange(items.filter((_, i) => i !== index));
   }
 
@@ -88,6 +100,7 @@ export function PriorityList({ items, onChange }: PriorityListProps) {
           styles.rankItem,
           i === 0 ? styles.rankItemTop : "",
           dragging ? styles.rankItemDragging : "",
+          armedName === item.name ? styles.rankItemArmed : "",
         ]
           .filter(Boolean)
           .join(" ");
@@ -100,8 +113,8 @@ export function PriorityList({ items, onChange }: PriorityListProps) {
             }
             onPointerDown={(e) => handlePointerDown(e, i)}
             onPointerMove={handlePointerMove}
-            onPointerUp={handlePointerUp}
-            onPointerCancel={handlePointerUp}
+            onPointerUp={() => handlePointerUp(i)}
+            onPointerCancel={() => handlePointerUp(i)}
           >
             <span className={styles.rankBody}>
               <span className={styles.rankNum}>

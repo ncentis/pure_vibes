@@ -191,27 +191,222 @@
   height: 24px;
   background-image: radial-gradient(circle, #3a3a3c 1.6px, transparent 1.7px);
   background-size: 7px 8px;
+  transition: transform 200ms ease;
 }
 
+.rankItemArmed .rankGrip {
+  transform: translateX(-10px);
+}
+
+/* Hidden until the tile is tapped: the grip slides 10px left and the
+   close control fades in where it was. */
 .rankRemove {
   position: absolute;
-  top: 5px;
-  right: 6px;
+  top: 50%;
+  right: 8px;
   min-height: 0;
-  width: 20px;
-  height: 20px;
+  width: 18px;
+  height: 18px;
   padding: 0;
   border: none;
   border-radius: 50%;
-  background: transparent;
-  color: rgba(0, 0, 0, 0.3);
-  font-size: 0.85rem;
+  background: rgba(0, 0, 0, 0.08);
+  color: rgba(0, 0, 0, 0.55);
+  font-size: 0.75rem;
   line-height: 1;
+  opacity: 0;
+  transform: translate(8px, -50%);
+  pointer-events: none;
+  transition:
+    opacity 180ms ease,
+    transform 180ms ease;
+}
+
+.rankItemArmed .rankRemove {
+  opacity: 1;
+  transform: translate(0, -50%);
+  pointer-events: auto;
 }
 
 .rankRemove:hover {
-  background: #f5f5f7;
+  background: rgba(0, 0, 0, 0.16);
   color: #000;
+}
+
+/* Top app bar */
+.topBar {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: -18px -16px 24px;
+  padding: 10px 18px;
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(14px) saturate(1.5);
+  -webkit-backdrop-filter: blur(14px) saturate(1.5);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.65);
+}
+
+.topBarSide {
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+.topBarLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: #000;
+  text-decoration: none;
+}
+
+.topBarLink:hover {
+  opacity: 0.6;
+}
+
+.topBarBrand {
+  flex: none;
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #000;
+}
+
+/* Two-column alignment layout */
+.alignShell {
+  max-width: 440px;
+  margin: 0 auto;
+}
+
+.alignLayout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.sideSticky {
+  display: grid;
+  gap: 14px;
+  align-self: start;
+}
+
+@media (min-width: 960px) {
+  .alignShell {
+    max-width: 980px;
+  }
+
+  .alignLayout {
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+    gap: 0 32px;
+    align-items: start;
+  }
+
+  .sideSticky {
+    position: sticky;
+    top: 76px;
+  }
+}
+
+/* Optional values — group card with vertical "+" rows */
+.optCard {
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(14px) saturate(1.5);
+  -webkit-backdrop-filter: blur(14px) saturate(1.5);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.85),
+    0 2px 8px rgba(40, 50, 80, 0.07);
+}
+
+.optCardTitle {
+  margin: 0 0 10px;
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: #000;
+  text-align: left;
+}
+
+.optList {
+  display: grid;
+  gap: 2px;
+}
+
+.optRow {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  width: 100%;
+  padding: 7px 6px;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  font-family: var(--font-instrument), system-ui, sans-serif;
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.55);
+  text-align: left;
+  cursor: pointer;
+  min-height: 0;
+}
+
+.optRow:hover {
+  background: rgba(0, 0, 0, 0.04);
+  color: #000;
+}
+
+.optRowAdded {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.optRowAdded:hover {
+  background: transparent;
+  color: rgba(0, 0, 0, 0.55);
+}
+
+.optRowBody {
+  display: grid;
+  gap: 1px;
+}
+
+.optRowReason {
+  font-size: 0.68rem;
+  font-weight: 400;
+  color: rgba(0, 0, 0, 0.4);
+}
+
+.optRowCritical .optRowReason {
+  color: #c62828;
+}
+
+.optRowCritical .sugChipIcon {
+  background: #c62828;
+}
+
+/* Secondary (outline) button */
+.btnSecondary {
+  width: 100%;
+  min-height: 48px;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  font-family: var(--font-instrument), system-ui, sans-serif;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #000;
+}
+
+.btnSecondary:hover {
+  background: rgba(255, 255, 255, 0.85);
 }
 
 /* Suggestions — frosted tray with "+" pill chips */
@@ -674,6 +869,11 @@
 @media (min-width: 720px) {
   .page {
     padding: 40px 24px 120px;
+  }
+
+  .topBar {
+    margin: -40px -24px 32px;
+    padding: 12px 24px;
   }
 }
 

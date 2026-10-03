@@ -3,6 +3,7 @@ import styles from "@/components/glassbox/glassbox.module.css";
 import { AlignmentForm } from "@/components/glassbox/alignment-form";
 import { glassboxFonts } from "@/components/glassbox/fonts";
 import { MOCK_REVIEWS } from "@/components/glassbox/mock";
+import { TopBar } from "@/components/glassbox/top-bar";
 
 // Alignment page. The brief calls this /align/[id]; it lives under /approve
 // per file ownership — alias or rename is a one-line follow-up with Nick.
@@ -20,8 +21,8 @@ export default async function AlignPage({
 
   return (
     <div className={`${styles.page} ${glassboxFonts}`}>
-      <div className={styles.shell}>
-        <div className={styles.brand}>Glass Box</div>
+      <TopBar />
+      <div className={styles.alignShell}>
         <h1 className={styles.taskHeader}>
           Here is how <em>i</em> want to approach it
         </h1>

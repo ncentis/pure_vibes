@@ -1,6 +1,7 @@
 import Link from "next/link";
 import styles from "@/components/glassbox/glassbox.module.css";
 import { glassboxFonts } from "@/components/glassbox/fonts";
+import { TopBar } from "@/components/glassbox/top-bar";
 import { MOCK_EVENTS, MOCK_REVIEWS } from "@/components/glassbox/mock";
 
 // Big-screen live feed. Mocked for now; will subscribe to Supabase Realtime
@@ -17,9 +18,8 @@ export default function DashboardPage() {
 
   return (
     <div className={`${styles.page} ${glassboxFonts}`}>
+      <TopBar />
       <div className={styles.shellWide}>
-        <div className={styles.brand}>Glass Box · Live</div>
-
         <div className={styles.statRow}>
           <div className={styles.stat}>
             <p className={styles.statValue}>{reviews.length}</p>

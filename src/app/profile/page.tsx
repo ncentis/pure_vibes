@@ -7,6 +7,7 @@ import {
   type RankedItem,
 } from "@/components/glassbox/priority-list";
 import { glassboxFonts } from "@/components/glassbox/fonts";
+import { TopBar } from "@/components/glassbox/top-bar";
 import {
   DIAL_SPECS,
   MOCK_PROFILE,
@@ -31,8 +32,8 @@ export default function ProfilePage() {
 
   return (
     <div className={`${styles.page} ${glassboxFonts}`}>
+      <TopBar />
       <div className={styles.shell}>
-        <div className={styles.brand}>Glass Box</div>
         <h1 className={styles.taskHeader}>
           What <em>i</em> always care about
         </h1>
