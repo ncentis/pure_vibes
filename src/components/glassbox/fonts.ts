@@ -1,19 +1,24 @@
-import { Crimson_Pro, Instrument_Sans } from "next/font/google";
+import localFont from "next/font/local";
 
-// Type system from Kathryn's Figma mock (Hackathon / iPhone 17 - 2):
-// Crimson Pro for display + values, Instrument Sans for labels/UI.
-// GT Pressura (wordmark) isn't freely licensed; letterspaced Instrument
-// Sans stands in.
+// Brand type: Sentinel (serif) + PP Mori (sans), self-hosted per the Figma.
+// Font files are licensed to Kathryn; confirm web-embedding terms before a
+// public production launch.
 
-export const crimson = Crimson_Pro({
-  subsets: ["latin"],
-  style: ["normal", "italic"],
-  variable: "--font-crimson",
+export const serif = localFont({
+  src: [
+    { path: "./fonts/Sentinel-Book.otf", weight: "400", style: "normal" },
+    { path: "./fonts/Sentinel-BookItalic.otf", weight: "400", style: "italic" },
+    { path: "./fonts/Sentinel-Semibold.otf", weight: "500", style: "normal" },
+  ],
+  variable: "--font-serif",
 });
 
-export const instrument = Instrument_Sans({
-  subsets: ["latin"],
-  variable: "--font-instrument",
+export const sans = localFont({
+  src: [
+    { path: "./fonts/PPMori-Regular.otf", weight: "400", style: "normal" },
+    { path: "./fonts/PPMori-SemiBold.otf", weight: "600", style: "normal" },
+  ],
+  variable: "--font-sans",
 });
 
-export const glassboxFonts = `${crimson.variable} ${instrument.variable}`;
+export const glassboxFonts = `${serif.variable} ${sans.variable}`;
