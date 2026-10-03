@@ -51,6 +51,11 @@
   margin: 0 0 32px;
 }
 
+/* Headline with no subline under it */
+.taskHeaderSolo {
+  margin-bottom: 40px;
+}
+
 .card {
   background: transparent;
   border: none;

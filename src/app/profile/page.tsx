@@ -43,12 +43,9 @@ export default function ProfilePage() {
     <div className={`${styles.page} ${glassboxFonts}`}>
       <TopBar />
       <div className={styles.alignShell}>
-        <h1 className={styles.taskHeader}>
+        <h1 className={`${styles.taskHeader} ${styles.taskHeaderSolo}`}>
           What <em>i</em> always care about
         </h1>
-        <p className={styles.agentName}>
-          Every new alignment starts from these. Next time, it already knows.
-        </p>
 
         <div className={styles.alignLayout}>
           <div>
