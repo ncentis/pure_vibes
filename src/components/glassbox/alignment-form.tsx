@@ -24,6 +24,7 @@ export function AlignmentForm({ review }: AlignmentFormProps) {
   const [submitted, setSubmitted] = useState(false);
 
   const inRanking = new Set(ranking.map((r) => r.name));
+  const criticals = review.suggestions.filter((s) => s.severity === "critical");
 
   function addSuggestion(name: string) {
     if (inRanking.has(name)) return;
@@ -92,32 +93,51 @@ export function AlignmentForm({ review }: AlignmentFormProps) {
       </section>
 
       <section className={styles.card}>
-        <h2 className={styles.cardTitle}>The agent didn&apos;t consider</h2>
-        <div className={styles.sugList}>
-          {review.suggestions.map((s) => {
-            const added = inRanking.has(s.name);
-            return (
-              <div
-                key={s.name}
-                className={`${styles.sugItem} ${
-                  s.severity === "critical" ? styles.sugItemCritical : ""
-                }`}
-              >
-                <div className={styles.sugBody}>
-                  <div className={styles.sugName}>{s.name}</div>
-                  <div className={styles.sugReason}>{s.reason}</div>
-                </div>
-                <button
-                  type="button"
-                  className={`${styles.sugAdd} ${added ? styles.sugAdded : ""}`}
-                  onClick={() => addSuggestion(s.name)}
-                  disabled={added}
-                >
-                  {added ? "Added" : "+ Add"}
-                </button>
+        <div className={styles.sugTray}>
+          <div className={styles.sugTrayInner}>
+            <p className={styles.sugTrayTitle}>
+              Additional priorities you may add
+            </p>
+            <div className={styles.sugList}>
+              {review.suggestions.map((s) => {
+                const added = inRanking.has(s.name);
+                const chipClasses = [
+                  styles.sugChip,
+                  s.severity === "critical" ? styles.sugChipCritical : "",
+                  added ? styles.sugChipAdded : "",
+                ]
+                  .filter(Boolean)
+                  .join(" ");
+                return (
+                  <button
+                    key={s.name}
+                    type="button"
+                    className={chipClasses}
+                    onClick={() => addSuggestion(s.name)}
+                    disabled={added}
+                    title={s.reason}
+                  >
+                    <span className={styles.sugChipIcon} aria-hidden>
+                      +
+                    </span>
+                    {s.name}
+                  </button>
+                );
+              })}
+            </div>
+            {criticals.length > 0 && (
+              <div className={styles.sugReasons}>
+                {criticals.map((s) => (
+                  <p
+                    key={s.name}
+                    className={`${styles.sugReason} ${styles.sugReasonCritical}`}
+                  >
+                    {s.name}: {s.reason}
+                  </p>
+                ))}
               </div>
-            );
-          })}
+            )}
+          </div>
         </div>
       </section>
 

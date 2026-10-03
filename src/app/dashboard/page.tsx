@@ -1,5 +1,6 @@
 import Link from "next/link";
 import styles from "@/components/glassbox/glassbox.module.css";
+import { glassboxFonts } from "@/components/glassbox/fonts";
 import { MOCK_EVENTS, MOCK_REVIEWS } from "@/components/glassbox/mock";
 
 // Big-screen live feed. Mocked for now; will subscribe to Supabase Realtime
@@ -15,12 +16,9 @@ export default function DashboardPage() {
   const events = [...MOCK_EVENTS].reverse();
 
   return (
-    <div className={styles.page}>
+    <div className={`${styles.page} ${glassboxFonts}`}>
       <div className={styles.shellWide}>
-        <div className={styles.brand}>
-          <span className={styles.brandMark} />
-          Glass Box · Live
-        </div>
+        <div className={styles.brand}>Glass Box · Live</div>
 
         <div className={styles.statRow}>
           <div className={styles.stat}>
@@ -48,7 +46,7 @@ export default function DashboardPage() {
                 href={`/approve/${r.id}`}
                 className={styles.reviewLink}
               >
-                <div className={styles.card}>
+                <div className={styles.reviewCard}>
                   <span
                     className={`${styles.pill} ${
                       r.status === "approved"

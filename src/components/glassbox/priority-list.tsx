@@ -103,12 +103,14 @@ export function PriorityList({ items, onChange }: PriorityListProps) {
             onPointerUp={handlePointerUp}
             onPointerCancel={handlePointerUp}
           >
-            <span className={styles.rankNum}>{i + 1}</span>
-            <span className={styles.rankName}>
-              {item.name}
-              {item.addedByHuman && (
-                <span className={styles.rankAdded}> · you added</span>
-              )}
+            <span className={styles.rankBody}>
+              <span className={styles.rankNum}>
+                Priority {i + 1}
+                {item.addedByHuman && (
+                  <span className={styles.rankAdded}> · you added</span>
+                )}
+              </span>
+              <span className={styles.rankName}>{item.name}</span>
             </span>
             <button
               type="button"
@@ -118,9 +120,7 @@ export function PriorityList({ items, onChange }: PriorityListProps) {
             >
               ×
             </button>
-            <span className={styles.rankGrip} aria-hidden>
-              ⠿
-            </span>
+            <span className={styles.rankGrip} aria-hidden />
           </li>
         );
       })}

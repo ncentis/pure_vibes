@@ -6,6 +6,7 @@ import {
   PriorityList,
   type RankedItem,
 } from "@/components/glassbox/priority-list";
+import { glassboxFonts } from "@/components/glassbox/fonts";
 import {
   DIAL_SPECS,
   MOCK_PROFILE,
@@ -29,13 +30,12 @@ export default function ProfilePage() {
   const [saved, setSaved] = useState(false);
 
   return (
-    <div className={styles.page}>
+    <div className={`${styles.page} ${glassboxFonts}`}>
       <div className={styles.shell}>
-        <div className={styles.brand}>
-          <span className={styles.brandMark} />
-          Glass Box · Profile
-        </div>
-        <h1 className={styles.taskHeader}>Your defaults</h1>
+        <div className={styles.brand}>Glass Box</div>
+        <h1 className={styles.taskHeader}>
+          What <em>i</em> always care about
+        </h1>
         <p className={styles.agentName}>
           Every new alignment starts from these. Next time, it already knows.
         </p>

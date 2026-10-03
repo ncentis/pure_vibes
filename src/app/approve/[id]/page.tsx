@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import styles from "@/components/glassbox/glassbox.module.css";
 import { AlignmentForm } from "@/components/glassbox/alignment-form";
+import { glassboxFonts } from "@/components/glassbox/fonts";
 import { MOCK_REVIEWS } from "@/components/glassbox/mock";
 
 // Alignment page. The brief calls this /align/[id]; it lives under /approve
@@ -18,16 +19,14 @@ export default async function AlignPage({
   if (!review) notFound();
 
   return (
-    <div className={styles.page}>
+    <div className={`${styles.page} ${glassboxFonts}`}>
       <div className={styles.shell}>
-        <div className={styles.brand}>
-          <span className={styles.brandMark} />
-          Glass Box
-        </div>
-        <h1 className={styles.taskHeader}>{review.task}</h1>
+        <div className={styles.brand}>Glass Box</div>
+        <h1 className={styles.taskHeader}>
+          Here is how <em>i</em> want to approach it
+        </h1>
         <p className={styles.agentName}>
-          {review.agent_name} wants to start — here&apos;s what its plan is
-          really optimizing for.
+          {review.agent_name} · “{review.task}”
         </p>
         <AlignmentForm review={review} />
       </div>
