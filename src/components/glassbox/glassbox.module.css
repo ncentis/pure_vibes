@@ -73,6 +73,21 @@
   color: rgba(0, 0, 0, 0.45);
 }
 
+/* When a section title sits directly on a set (no hint between), keep at
+   least 12px of air above the tiles. */
+.cardTitle + .rankList,
+.cardTitle + .dialRow,
+.cardTitle + .hardList {
+  margin-top: 12px;
+}
+
+.submitLink {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+
 /* Stated vs revealed */
 .svr {
   display: grid;
@@ -198,11 +213,11 @@
   transform: translateX(-10px);
 }
 
-/* Hidden until the tile is tapped: the grip slides 10px left and the
-   close control fades in where it was. */
+/* Hidden until the tile is tapped: the grip slides 10px left and a red
+   close control fades in at the tile's top-right corner (Figma 5:1799). */
 .rankRemove {
   position: absolute;
-  top: 50%;
+  top: 6px;
   right: 8px;
   min-height: 0;
   width: 18px;
@@ -210,12 +225,13 @@
   padding: 0;
   border: none;
   border-radius: 50%;
-  background: rgba(0, 0, 0, 0.08);
-  color: rgba(0, 0, 0, 0.55);
-  font-size: 0.75rem;
+  background: transparent;
+  color: #c62828;
+  font-size: 0.85rem;
+  font-weight: 600;
   line-height: 1;
   opacity: 0;
-  transform: translate(8px, -50%);
+  transform: translateY(4px);
   pointer-events: none;
   transition:
     opacity 180ms ease,
@@ -224,13 +240,12 @@
 
 .rankItemArmed .rankRemove {
   opacity: 1;
-  transform: translate(0, -50%);
+  transform: translateY(0);
   pointer-events: auto;
 }
 
 .rankRemove:hover {
-  background: rgba(0, 0, 0, 0.16);
-  color: #000;
+  background: rgba(198, 40, 40, 0.1);
 }
 
 /* Top app bar */

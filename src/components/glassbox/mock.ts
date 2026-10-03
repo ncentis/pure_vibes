@@ -226,6 +226,16 @@ export const MOCK_EVENTS: MockEvent[] = [
   },
 ];
 
+// Catalog of common values a user can add to their default ranking.
+export const PROFILE_VALUE_CATALOG = [
+  "Security",
+  "Privacy",
+  "Speed",
+  "Keep it simple",
+  "Reversibility",
+  "Check with me first",
+];
+
 export const MOCK_PROFILE = {
   ranking_defaults: [
     "Cost",
