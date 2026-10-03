@@ -298,6 +298,13 @@
   color: #000;
 }
 
+.topBarLogo {
+  flex: none;
+  display: block;
+  height: 16px;
+  width: auto;
+}
+
 /* Two-column alignment layout */
 .alignShell {
   max-width: 440px;

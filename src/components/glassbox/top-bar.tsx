@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import styles from "./glassbox.module.css";
 
@@ -25,7 +26,14 @@ export function TopBar() {
           Profile : Account
         </Link>
       </span>
-      <span className={styles.topBarBrand}>Glass Box</span>
+      <Image
+        src="/logo.svg"
+        alt="Glass Box"
+        width={140}
+        height={16}
+        priority
+        className={styles.topBarLogo}
+      />
       <span className={styles.topBarSide} />
     </header>
   );
