@@ -63,6 +63,43 @@ export default function OnboardingPage() {
               Create your account — your agents will answer to it.
             </p>
             <div className={styles.onboardCard}>
+              <div className={styles.fieldGroup}>
+                <label className={styles.fieldLabel} htmlFor="ob-email">
+                  Email
+                </label>
+                <input
+                  id="ob-email"
+                  type="email"
+                  autoComplete="email"
+                  placeholder="you@studio.co"
+                  className={styles.fieldInput}
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              </div>
+              <div className={styles.fieldGroup}>
+                <label className={styles.fieldLabel} htmlFor="ob-password">
+                  Password
+                </label>
+                <input
+                  id="ob-password"
+                  type="password"
+                  autoComplete="new-password"
+                  placeholder="At least 8 characters"
+                  className={styles.fieldInput}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </div>
+              <button
+                type="button"
+                className={styles.submit}
+                disabled={!accountValid}
+                onClick={() => setStep(1)}
+              >
+                Create account
+              </button>
+              <div className={styles.divider}>or</div>
               {/* TODO(wiring): supabase.auth.signInWithOAuth — George's lane.
                   Mock: advances the flow. */}
               <div className={styles.oauthStack}>
@@ -113,43 +150,6 @@ export default function OnboardingPage() {
                   Continue with GitHub
                 </button>
               </div>
-              <div className={styles.divider}>or</div>
-              <div className={styles.fieldGroup}>
-                <label className={styles.fieldLabel} htmlFor="ob-email">
-                  Email
-                </label>
-                <input
-                  id="ob-email"
-                  type="email"
-                  autoComplete="email"
-                  placeholder="you@studio.co"
-                  className={styles.fieldInput}
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-              </div>
-              <div className={styles.fieldGroup}>
-                <label className={styles.fieldLabel} htmlFor="ob-password">
-                  Password
-                </label>
-                <input
-                  id="ob-password"
-                  type="password"
-                  autoComplete="new-password"
-                  placeholder="At least 8 characters"
-                  className={styles.fieldInput}
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-              </div>
-              <button
-                type="button"
-                className={styles.submit}
-                disabled={!accountValid}
-                onClick={() => setStep(1)}
-              >
-                Create account
-              </button>
             </div>
             {dots}
           </>
