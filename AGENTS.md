@@ -1,15 +1,32 @@
-# Working on Pure Vibes
+# Working on Glass Box
 
-This runbook is for George, Katie, Nick, and their coding agents. Run commands from the repository root unless stated otherwise. Read `README.md` for the team's current product ideas, `docs/TEAM_SETUP.md` for account configuration, and `docs/ARCHITECTURE.md` for integration boundaries before changing integrations.
+This runbook is for Nick, George, Kathryn, and their coding agents. Run commands from the repository root unless stated otherwise. Read `README.md` for product context, `docs/TEAM_SETUP.md` for account configuration, and `docs/ARCHITECTURE.md` for integration boundaries before changing integrations.
 
 ## Repository and session orientation
 
-- Canonical repository: **`George-Anagnostou/pure_vibes`** — https://github.com/George-Anagnostou/pure_vibes.
-- The upstream default branch is currently **`master`**, not `main`. "Main repo" means the canonical repository, not a branch named `main`. Discover the default before starting work in case it changes.
+- Canonical repository: **`ncentis/pure_vibes`** — https://github.com/ncentis/pure_vibes. The retired `George-Anagnostou/pure_vibes` repo must not receive pushes or PRs.
+- `origin` must be `https://github.com/ncentis/pure_vibes.git`; `master` is the default branch. Everyone has push access; use `origin` directly and do not configure/use an `upstream` fork remote. Verify both at the start of a session.
 - Inspect `git status --short`, `git remote -v`, and `git branch --show-current` first. Preserve existing teammate changes; stage only files belonging to your task.
 - **All repo editing happens in a dedicated Git worktree.** Never edit files in the shared base checkout. Create one worktree per person/task on its own branch before making changes; this keeps simultaneous edits isolated. Push that branch and open its PR from the worktree. Coordinate task/file ownership if branches touch overlapping areas.
 - **Keep work synchronized.** At the start of a task and at least once each work session, fetch/prune remote branches and check open issues and PRs for related work. Before editing, start from the latest default branch. During active collaboration, check for merged work frequently (at least daily and before substantial dependent changes); before opening/updating a PR, fetch and rebase your own branch onto the latest default branch, resolve conflicts in your worktree, rerun checks, and push. Keep changes small and PRs focused so teammates can review/merge promptly. Never rebase or force-push a branch another person is using; coordinate first.
 - Read this file at the start of each agent session. If your coding tool does not automatically load `AGENTS.md`, explicitly ask it to read it. A tool authenticated on one teammate's machine is not automatically available to another teammate or agent.
+- At session start, report the current branch, `origin` URL/canonical repo, and the file-ownership area for the task. Accept the repository invitation at https://github.com/ncentis/pure_vibes/invitations if access is still pending.
+
+## Team ownership and product contract
+
+Ask the owner before editing files assigned to another teammate. Keep PRs within one ownership area where possible; clearly call out cross-owner files in the PR title and get the affected owner's approval before merging.
+
+| Owner                            | Primary files                                                                                                                                                                                                                      |
+| -------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Nick (`ncentis`)                 | `src/lib/glassbox/**` (LLM prompts, checkpoint rules, contract logic), `src/lib/glassbox/types.ts`, `src/app/api/review/**`, `src/app/api/reviews/**`, `src/app/api/mcp/**`, `scripts/**`, `fixtures/**`, `supabase/migrations/**` |
+| Kathryn (`kathryn-salad-studio`) | `src/app/approve/**`, `src/app/dashboard/**`, `src/app/profile/**`, `src/components/**`, `src/app/globals.css`, `public/**`                                                                                                        |
+| George (`George-Anagnostou`)     | Authentication, Stripe, CI, deploy/Vercel configuration, `package.json`, `AGENTS.md`, and `docs/**`                                                                                                                                |
+
+`src/lib/glassbox/types.ts` is the shared API contract consumed by the UI and is owned by Nick. Ask Nick before changing it. After 3:00pm PT on the hackathon day, changes must be additive; do not rename or remove contract fields.
+
+Only Nick creates Supabase migrations and pushes migrations to the shared Supabase project. Never edit an already-pushed migration; create a new migration instead. Before a shared database push or another shared/destructive operation, describe the impact and wait for the responsible owner's explicit OK. Vercel deploys do not apply database migrations.
+
+On the hackathon day (event date to be confirmed), target a ~5:00pm PT finish: 4:00pm PT feature freeze (only demo-blocking fixes afterward), and 4:30pm PT freeze on `master` (nothing merges after that).
 
 ## Install tools and dependencies
 
@@ -43,20 +60,22 @@ For nvm installation, follow https://github.com/nvm-sh/nvm#installing-and-updati
    ```bash
    gh auth login
    gh auth setup-git
-   gh repo clone George-Anagnostou/pure_vibes
+   gh repo clone ncentis/pure_vibes
    cd pure_vibes
+   # Set OWNER to your team handle: nick, george, or kathryn.
+   OWNER=george
+   TASK=onboarding
    git fetch origin
-   BASE_BRANCH=$(gh repo view George-Anagnostou/pure_vibes --json defaultBranchRef --jq '.defaultBranchRef.name')
-   TASK="onboarding-$USER"
-   git worktree add "../pure_vibes-$TASK" -b "docs/$TASK" "origin/$BASE_BRANCH"
-   cd "../pure_vibes-$TASK"
+   BASE_BRANCH=$(gh repo view ncentis/pure_vibes --json defaultBranchRef --jq '.defaultBranchRef.name')
+   git worktree add "../pure_vibes-$OWNER-$TASK" -b "$OWNER/$TASK" "origin/$BASE_BRANCH"
+   cd "../pure_vibes-$OWNER-$TASK"
    nvm install
    nvm use
    npm ci
    npm run setup
    ```
 
-   If the base repo is already cloned, reuse it and create a uniquely named worktree beside it; do not clone inside another checkout. The example uses a username-based task name; change it if it is already in use. If using Node 24 directly, skip the nvm commands. Install dependencies and create `.env.local` separately in each worktree as needed (`node_modules` and env files are not shared).
+   If the base repo is already cloned, reuse it and create a uniquely named worktree beside it; do not clone inside another checkout. Choose your own owner prefix and a unique task name. If `origin` is wrong, set it to `https://github.com/ncentis/pure_vibes.git`; remove any `upstream` remote rather than using it. If using Node 24 directly, skip the nvm commands. Install dependencies and create `.env.local` separately in each worktree as needed (`node_modules` and env files are not shared).
 
 3. Populate `.env.local` from the team vault and your own development credentials. `npm run setup` copies `.env.example` without overwriting an existing file. Never print or paste the env file into agent output.
 4. Run `npm run env:check`, `npm run check`, then `npm run dev`. Open `http://localhost:3000`. The starter page and code checks work without cloud keys; live integration actions require configuration.
@@ -78,7 +97,7 @@ App environment variables, CLI logins, and agent/MCP authentication are separate
 
 ## Invoke project tools
 
-Use the terminal/shell tool exposed by your agent client for the same commands a teammate would run. Prefer existing package scripts over ad hoc scripts or installing duplicate dependencies.
+Use the terminal/shell tool exposed by your agent client for the same commands a teammate would run. Prefer existing package scripts over ad hoc scripts or installing duplicate dependencies. Use npm only; do not add pnpm/yarn lockfiles. Only change `package-lock.json` when deliberately adding/changing a dependency, and state that in the PR.
 
 | Task                                                 | Command                                                                         |
 | ---------------------------------------------------- | ------------------------------------------------------------------------------- |
@@ -95,7 +114,7 @@ Use the terminal/shell tool exposed by your agent client for the same commands a
 
 ### Supabase: auth, schema, and data
 
-For the **shared hosted development project**, authenticate and link this checkout:
+For the **shared hosted development project**, authenticate and link this checkout. Only Nick creates shared migrations or applies them to the shared project; other teammates can run local Supabase and test local migration changes in coordination with Nick:
 
 ```bash
 npx supabase login
@@ -105,10 +124,10 @@ npx supabase link --project-ref YOUR_PROJECT_REF
 Get the project ref from the owner/dashboard; do not infer it from an unrelated accessible project. Coordinate migration deployment with the teammate who owns the shared database:
 
 ```bash
-npx supabase migration new descriptive_name
+npx supabase migration new descriptive_name # Nick only; other teammates send schema requests to Nick
 # Edit the new SQL migration; test on local Supabase when available.
 npx supabase db push --dry-run
-npm run db:push
+npm run db:push # Nick only, after confirming the target and obtaining the required OK
 npm run db:types -- --linked
 ```
 
@@ -145,7 +164,7 @@ The example normalizes a brief, generates a Zod-validated plan, and saves it in 
 
 ### Vercel: link and deploy
 
-Git integration is the usual deployment path: import the canonical repo into the team's Vercel project, add hosted env values, and configure the production branch to match the actual upstream default. For CLI work:
+Git integration is the usual deployment path: import the canonical repo into the team's Vercel project, add hosted env values, and configure the production branch to match the actual `origin` default branch. For CLI work:
 
 ```bash
 npx vercel@latest login
@@ -171,22 +190,21 @@ Preview API calls require a matching `APP_URL` and Supabase redirect allowlist. 
 
 ## Branches, commits, and PRs to the canonical repo
 
-With write access, `origin` should point to `George-Anagnostou/pure_vibes`. Keep the base checkout clean. Discover the default, then create a **separate worktree and task branch** before editing:
+`origin` must point to `ncentis/pure_vibes`; there is no fork/upstream workflow for teammates. Keep the base checkout clean. Check for related open PRs, fetch the latest `master`, then create a **separate worktree and task branch** before editing:
 
 ```bash
 gh auth status
 git remote -v
-gh issue list --repo George-Anagnostou/pure_vibes --state open
-gh pr list --repo George-Anagnostou/pure_vibes --state open
+gh pr list --repo ncentis/pure_vibes --state open
 git fetch origin --prune
-BASE_BRANCH=$(gh repo view George-Anagnostou/pure_vibes --json defaultBranchRef --jq '.defaultBranchRef.name')
-git worktree add ../pure_vibes-feat-short-description -b feat/short-description "origin/$BASE_BRANCH"
-cd ../pure_vibes-feat-short-description
+BASE_BRANCH=$(gh repo view ncentis/pure_vibes --json defaultBranchRef --jq '.defaultBranchRef.name')
+git worktree add ../pure_vibes-george-short-description -b george/short-description "origin/$BASE_BRANCH"
+cd ../pure_vibes-george-short-description
 npm ci
 npm run setup
 ```
 
-Replace `feat/short-description` and the worktree path with meaningful unique names; use `fix/` or `docs/` when appropriate. One task/branch/worktree per person or agent. Do not reuse another teammate's worktree or edit the base checkout. Keep `.env.local` private in each worktree. Do not push task work directly to the default branch.
+Use branch prefixes `nick/`, `kathryn/`, or `george/` and a descriptive task name. One task/branch/worktree per person or agent. Do not reuse another teammate's worktree or edit the base checkout. Keep `.env.local` private in each worktree. Never push directly to `master`.
 
 Before pulling or rebasing, make sure your worktree is clean (`git status --short`). Commit or safely stash your own work first; never overwrite another person's edits. To refresh a task branch after others merge:
 
@@ -196,7 +214,9 @@ git rebase "origin/$BASE_BRANCH"
 # Resolve conflicts only in your own worktree, then rerun checks.
 ```
 
-Use `git pull --rebase` only when the task branch has the correct upstream configured and the worktree is clean. Do not routinely merge the default branch into a task branch (it creates noisy history). If the branch has already been shared with other contributors, coordinate before rebasing because rebasing changes its commit IDs.
+Use `git pull --rebase` only when the task branch tracks the correct `origin` branch and the worktree is clean. Do not routinely merge the default branch into a task branch (it creates noisy history). After any merge to `master`, rebase your own continuing task worktree onto `origin/master`. If the branch is used by another contributor, coordinate before rebasing because rebasing changes commit IDs.
+
+If a rebase conflicts in a file you do not own, stop and ask its owner; resolve conflicts only in your own files. Never use `git reset --hard`, `git clean -fd`, `git checkout -- .`, or `git push --force`. Force-pushing your own branch after a rebase is permitted only with `--force-with-lease`, after confirming no teammate depends on the old history.
 
 Before submitting:
 
@@ -212,32 +232,26 @@ git status --short
 git add path/to/changed-file path/to/another-changed-file
 git diff --cached
 git commit -m "Describe the change"
-git push -u origin feat/short-description
-gh pr create --repo George-Anagnostou/pure_vibes \
-  --base "$BASE_BRANCH" --head feat/short-description \
+git push -u origin george/short-description
+gh pr create --repo ncentis/pure_vibes \
+  --base master --head george/short-description \
   --title "Describe the change" \
   --body "Summary: ...
 Verification: ...
 Setup or migrations: ..."
 ```
 
-Replace the staging paths and PR text with your actual files/results. Recompute `BASE_BRANCH` if using a new shell. Include the purpose, tests run/skipped, required env names (never values), migration/deployment steps, and screenshots for visible UI changes. Use `--draft` on `gh pr create` for unfinished work. Add `--reviewer GITHUB_LOGIN` when you know the teammate's GitHub username.
+Replace the staging paths, owner prefix, and PR text with your actual files/results. Include purpose, tests run/skipped, required env names (never values), migration/deployment steps, and screenshots for visible UI changes. If a PR touches another owner's files, say so in the title and request their approval. Use `--draft` for unfinished work. Keep PRs small and open them frequently rather than building one large branch. Squash and merge. You may merge your own PR only when it touches your own files and checks pass; changes to another owner's files need their explicit OK first.
 
-Without write access, request access or use a **fork**. Clone your fork, keep `origin` pointing to it, and configure `upstream` to `https://github.com/George-Anagnostou/pure_vibes.git` if absent. Fetch `upstream` and branch from `upstream/$BASE_BRANCH`; push to your fork's `origin`. Open the PR against the canonical repository using:
-
-```bash
-gh pr create --repo George-Anagnostou/pure_vibes \
-  --base "$BASE_BRANCH" --head YOUR_GITHUB_LOGIN:feat/short-description \
-  --title "Describe the change" --body "Summary and verification: ..."
-```
+All teammates have push access to the canonical repository; if access is missing, accept the invite or ask Nick rather than creating a fork. GitHub Issues are currently disabled, so use open PRs and team discussion to coordinate work.
 
 Inspect review and CI results with:
 
 ```bash
-gh pr view PR_NUMBER --repo George-Anagnostou/pure_vibes --web
-gh pr checks PR_NUMBER --repo George-Anagnostou/pure_vibes
-gh run list --repo George-Anagnostou/pure_vibes --branch feat/short-description
-gh run view RUN_ID --repo George-Anagnostou/pure_vibes --log-failed
+gh pr view PR_NUMBER --repo ncentis/pure_vibes --web
+gh pr checks PR_NUMBER --repo ncentis/pure_vibes
+gh run list --repo ncentis/pure_vibes --branch george/short-description
+gh run view RUN_ID --repo ncentis/pure_vibes --log-failed
 ```
 
 Replace `PR_NUMBER` / `RUN_ID` with actual IDs. Push follow-up commits to the same branch to update the PR. Both `app` and `database` CI jobs should pass before merging; teammate review and the repository's branch rules govern merging. Share the PR URL in your final handoff. If asked only to prepare code, report that it has not been pushed or submitted.
@@ -246,9 +260,9 @@ After the PR is merged (or the task is abandoned), first stop any dev server/pro
 
 ```bash
 git worktree list
-git -C ../pure_vibes-feat-short-description status --short
-git worktree remove ../pure_vibes-feat-short-description
-git branch -d feat/short-description
+git -C ../pure_vibes-george-short-description status --short
+git worktree remove ../pure_vibes-george-short-description
+git branch -d george/short-description
 git worktree prune
 ```
 
@@ -259,7 +273,7 @@ Do not force-remove a worktree or delete a branch with uncommitted/unmerged work
 - Use Node 24 and npm. Commit `package-lock.json`; install with `npm ci`.
 - Keep integration credentials in `.env.local` / Vercel, never source, logs, or chat. Add new variable names and descriptions to `.env.example` and the environment checker.
 - Use the session-scoped Supabase client for user reads. Privileged writes require verified authentication or a verified Stripe webhook. Never accept user/customer IDs as authority from request bodies.
-- Add schema changes as new migrations. Preserve RLS, regenerate database types, and run SQL tests locally when Docker is available.
+- Only Nick creates migrations and pushes to shared Supabase. Preserve RLS, regenerate database types, and run SQL tests locally when Docker is available.
 - Keep payment amounts and price selection server-controlled. Billing access comes from synced Stripe state, not a redirect query parameter.
 - Keep AI workflows bounded and awaited. Do not describe request-time orchestration as a durable job system.
 - Run `npm run check`, `npm run format:check`, and `npm run build`. For schema changes, also run `npm run db:test` with local Supabase.

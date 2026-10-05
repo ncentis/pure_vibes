@@ -1,5 +1,11 @@
 # Architecture
 
+## Glass Box team boundaries
+
+This is the integration scaffold for Glass Box in `ncentis/pure_vibes`; read `AGENTS.md` before editing. Nick owns Glass Box prompts/checkpoints/contracts, review/MCP API routes, scripts, fixtures, and Supabase migrations. Kathryn owns approval/dashboard/profile UI, shared components, global CSS, and public assets. George owns auth, Stripe, CI, deployment configuration, package manifest, and internal docs. `src/lib/glassbox/types.ts` is Nick-owned shared UI/API contract: ask Nick before changing it; after 3:00pm PT on hackathon day only additive changes are allowed. Cross-owner PRs disclose touched areas and need each owner's approval before merge.
+
+Only Nick creates migrations or applies them to the shared Supabase project. Other developers can run local database tests. Never rewrite an already-pushed migration; add a new one. Describe and get explicit approval for shared/destructive actions before running them. See `docs/TEAM_SETUP.md` for the hackathon PR and freeze cadence.
+
 ## Integration map
 
 ```text
